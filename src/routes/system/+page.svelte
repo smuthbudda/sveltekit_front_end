@@ -1,7 +1,8 @@
 <script lang="ts">
   import { baseAPIUrl } from "$lib/const";
+  import type { SystemInfo } from "$lib/types";
   import { onMount } from "svelte";
-
+  import { Spinner } from "@sveltestrap/sveltestrap";
   let socket;
   let url = "ws://localhost:7878/api/system/cpu";
   let chart_data: number[] = [];
@@ -25,19 +26,6 @@
       console.log("Opened");
     };
   });
-
-  interface CpuInfo {
-    brand: string;
-    id: string;
-    name: string;
-  }
-
-  interface SystemInfo {
-    cpu_info: CpuInfo;
-    disks: string[];
-    os: string;
-    ram_total: number;
-  }
 </script>
 
 <div class="system_container">
@@ -49,7 +37,7 @@
       </div>
     {/each}
     {#if chart_data.length == 0}
-      <div>Loading...</div>
+      <Spinner type="border" color="primary" />
     {/if}
   </div>
   <div class="card">
@@ -58,8 +46,11 @@
       {#if system_info != undefined}
         <div><strong>CPU Name:</strong> {system_info.cpu_info.brand}</div>
         <div><strong>OS:</strong> {system_info.os}</div>
-        <div><strong>Total Ram:</strong> {system_info.ram_total}</div>
-        <!-- <div><strong>CPU Name:</strong> {system_info.disks[0]}</div> -->
+        <div>
+          <strong>Total Ram:</strong>
+          {system_info.ram_total / (1024 * 1024 * 10)}
+        </div>
+        <div><strong>CPU Name:</strong> {system_info.disks[0]}</div>
       {/if}
     </section>
   </div>

@@ -1,13 +1,31 @@
-<script>
+<script lang="ts">
+	import Modal from './../components/Modal.svelte';
+	import Login from './../components/Login.svelte';
 	import { page } from '$app/stores';
-	import logo from '$lib/images/svelte-logo.svg';
 	import github from '$lib/images/github.svg';
+	import { onMount } from 'svelte';
+    import { APIClient } from '$lib/ApiClient';
+    import type { LoggedInUserDetails } from '$lib/types';
+	let apiClient = new APIClient();
+	let showModal = false;
+	let user:LoggedInUserDetails;
+
+	// onMount(async () => {
+	// 	// read token from sessionStorage
+    //     const token = sessionStorage.getItem('token');
+	// 	if(token != null){
+	// 		let result  = await apiClient.getMyDetails(token);
+	// 		user = result[1];
+	// 		console.log(user)
+	// 	}
+    // });
+	
 </script>
 
 <header>
 	<div class="corner">
-		<a href="https://kit.svelte.dev">
-			<img src={logo} alt="SvelteKit" />
+		<a href="https://github.com/smuthbudda?tab=repositories">
+			<img src={github} alt="GitHub" />
 		</a>
 	</div>
 
@@ -35,13 +53,24 @@
 	</nav>
 
 	<div class="corner">
-		<a href="https://github.com/smuthbudda?tab=repositories">
+		<button on:click={() => (showModal = true)}>
 			<img src={github} alt="GitHub" />
-		</a>
+		</button>
+		<!-- {#if data != undefined}
+			<div>{data.first_name}</div>
+		{/if} -->
+		<Modal bind:showModal>
+			<Login/>
+		</Modal>
 	</div>
 </header>
 
 <style>
+	button{
+		margin-top: 1rem;
+		border: none;
+	}
+
 	header {
 		display: flex;
 		justify-content: space-between;
