@@ -1,5 +1,6 @@
 <script lang="ts">
     import { APIClient } from "$lib/ApiClient";
+    import { userDetails } from "$lib/store"
 
     let isLogin = true;
     let apiClient = new APIClient();
@@ -14,10 +15,12 @@
     async function login() {
         let token = await apiClient.userLogin(username, password);
         sessionStorage.setItem("token", token[1].access_token);
-
         let result  = await apiClient.getMyDetails(token[1].access_token);
         console.log(result);
+        userDetails.setName(result[1].first_name)
+        userDetails.setId(result[1].id)
     }
+
 </script>
 <input type="checkbox" bind:value={isLogin}/>
 {#if isLogin}

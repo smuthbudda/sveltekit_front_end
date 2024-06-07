@@ -51,7 +51,8 @@ export class APIClient {
             }
         });
         const content = await result.json();
-        return [HttpStatusCode.Accepted, content]
+        let x = content.data.user
+        return [HttpStatusCode.Accepted, x]
     }
 
     async createNewUser(username: string, password: string): Promise<[HttpStatusCode, string]> {

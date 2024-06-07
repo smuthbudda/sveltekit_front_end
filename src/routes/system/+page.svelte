@@ -13,7 +13,6 @@
       .then((response) => response.json())
       .then((data) => {
         system_info = data.data;
-        console.log(system_info);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -23,7 +22,6 @@
     socket.onmessage = (event) => {
       const receivedData = JSON.parse(event.data);
       chart_data = receivedData;
-      console.log("Opened");
     };
   });
 </script>

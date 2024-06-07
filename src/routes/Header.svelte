@@ -5,21 +5,21 @@
 	import github from '$lib/images/github.svg';
 	import { onMount } from 'svelte';
     import { APIClient } from '$lib/ApiClient';
-    import type { LoggedInUserDetails } from '$lib/types';
+    import type { State } from '$lib/types';
+    import { userDetails } from '$lib/store';
 	let apiClient = new APIClient();
 	let showModal = false;
-	let user:LoggedInUserDetails;
-
-	// onMount(async () => {
-	// 	// read token from sessionStorage
-    //     const token = sessionStorage.getItem('token');
-	// 	if(token != null){
-	// 		let result  = await apiClient.getMyDetails(token);
-	// 		user = result[1];
-	// 		console.log(user)
-	// 	}
-    // });
+	let user:State;
 	
+	userDetails.subscribe((value) => {
+		user = value
+	});
+
+	onMount(async () => {
+		// read token from sessionStorage
+        //await get_user();
+    });
+
 </script>
 
 <header>
@@ -56,9 +56,9 @@
 		<button on:click={() => (showModal = true)}>
 			<img src={github} alt="GitHub" />
 		</button>
-		<!-- {#if data != undefined}
-			<div>{data.first_name}</div>
-		{/if} -->
+		{#if user != undefined}
+			<div>{user.username}</div>
+		{/if}
 		<Modal bind:showModal>
 			<Login/>
 		</Modal>

@@ -1,21 +1,8 @@
-<script lang='ts'>
-	import Header from './Header.svelte';
-	import './styles.css';
-	import type { LoggedInUserDetails } from '$lib/types';
-	import { APIClient } from "$lib/ApiClient";
-	let apiClient = new APIClient();
-	let user:LoggedInUserDetails;
+<script lang="ts">
+	import Header from "./Header.svelte";
+	import "./styles.css";
+	
 
-	export async function load(){
-		const token = sessionStorage.getItem('token');
-		if(token != null){
-			let result  = await apiClient.getMyDetails(token);
-			user = result[1]
-		}
-		return {
-			user
-		}
-	}
 </script>
 
 <div class="app">
@@ -25,8 +12,7 @@
 		<slot />
 	</main>
 
-	<footer>
-	</footer>
+	<footer></footer>
 </div>
 
 <style>

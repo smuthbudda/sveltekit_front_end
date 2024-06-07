@@ -45,3 +45,5 @@ export interface LoggedInUserDetails{
     email: string,
     phone: string,
 }
+
+export type State = { username: string, id : string}
