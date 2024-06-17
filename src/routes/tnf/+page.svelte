@@ -2,7 +2,8 @@
     import type { Gender, TrackPoints } from "$lib/types";
     import { APIClient } from "$lib/ApiClient";
     import { OutdoorEvents } from "$lib/const.js";
-    import { Table } from "@sveltestrap/sveltestrap";
+    import VideoUpload from "../../components/VideoUpload.svelte";
+    import VidUpload from "../../components/VidUpload.svelte";
 
     const apiBaseUrl = import.meta.env.API_BASE_URL;
     let apiclient = new APIClient(apiBaseUrl);
@@ -30,6 +31,7 @@
 
     let GenderArr = ["Male", "Female"];
     let CategoryArr = ["Indoor", "Outdoor"];
+    const authorizedExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
 </script>
 
 <section>
@@ -97,6 +99,7 @@
         {/if}
     </div>
 </section>
+<VidUpload/>
 
 <style>
     section {
@@ -135,5 +138,4 @@
     .styled-table tbody tr:last-of-type {
         border-bottom: 2px solid #009879;
     }
-
 </style>
