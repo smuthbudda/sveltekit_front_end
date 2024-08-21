@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { baseAPIUrl } from "$lib/const";
+  import { baseAPIUrl, baseWSUrl } from "$lib/const";
   import type { SystemInfo } from "$lib/types";
   import { onMount } from "svelte";
   import { Spinner } from "@sveltestrap/sveltestrap";
   let socket;
-  let url = "ws://localhost:7878/api/system/cpu";
+  let url = `${baseWSUrl}/api/system/cpu`;
   let chart_data: number[] = [];
   let system_info: SystemInfo;
 
